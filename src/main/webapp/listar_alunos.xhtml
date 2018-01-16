@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+		<title>Gerenciamento de Alunos</title>
+	</h:head>
+	<h:body>
+		<h:form>
+			<table>
+				<tr>
+					<td colspan="4">Lista de Alunos</td>
+				</tr>
+				<tr>
+					<th style="width: 120px;">Núm. Matrícula</th>
+					<th style="width: 320px;">Nome</th>
+					<th style="width: 120px;">Data de Nascimento</th>
+					<th style="width: 120px;"></th>
+				</tr>
+				
+				<h:panelGroup rendered="#{alunos.alunos.size() > 0}">
+					<ui:repeat var="aluno" value="#{alunos.alunos}">
+						<tr>
+							<td align="center">#{aluno.numMatricula}</td>
+							<td>#{aluno.nome}</td>
+							<td align="center">
+								<h:outputText value="#{aluno.dataNascimento}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</td>
+							<td>
+								<h:commandLink value="Alterar" action="#{alunos.alterar(aluno)}" />
+								<h:commandLink value="Remover" action="#{alunos.excluir(aluno)}" />
+							</td>
+						</tr>
+					</ui:repeat>
+				</h:panelGroup>
+				
+				<h:panelGroup rendered="#{alunos.alunos.size() == 0}">
+					<tr>
+						<td colspan="4" align="center">Não existem alunos cadastrados</td>
+					</tr>
+				</h:panelGroup>
+				
+			</table>
+			
+			<h:commandButton value="Inserir Aluno" action="#{alunos.novoAluno}"></h:commandButton>
+			
+		</h:form>
+		
+		<p>
+			<h:link value="Página Inicial" outcome="index" />
+		</p>
+		
+	</h:body>
+</html>
